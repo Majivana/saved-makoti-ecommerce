@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your Cart — Saved Makoti Clothing Line</title>
+<link rel="icon" href="images/brand/logo-icon.png">
+<link rel="stylesheet" href="css/style.css">
+<!-- Yoco Checkout SDK: loaded for production use. Replace 'pk_test_xxxx' in js below with your live public key. -->
+<script src="https://js.yoco.com/sdk/v1/yoco-sdk-web.js"></script>
+</head>
+<body>
+
+<div class="announce">Free shipping on orders over <strong>R10,000</strong> &nbsp;·&nbsp; Use code <strong>ACHUMA</strong> for 15% off your first order</div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="brand">
+      <img src="images/brand/logo-icon.png" alt="Saved Makoti Clothing Line emblem">
+      <span class="brand-word">Saved Makoti<small>Clothing Line</small></span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <a href="shop.html" class="icon-btn" aria-label="Search collection">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      </a>
+      <a href="cart.html" class="icon-btn" aria-label="View cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 7h15l-1.5 9.5a2 2 0 0 1-2 1.7H8.7a2 2 0 0 1-2-1.7L5 4H2"/><circle cx="9.5" cy="21" r="1.4"/><circle cx="17.5" cy="21" r="1.4"/></svg>
+        <span class="cart-count">0</span>
+      </a>
+      <button class="burger" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-nav">
+  <div class="mobile-nav-top">
+    <img src="images/brand/logo-icon.png" alt="Saved Makoti">
+    <button class="mobile-nav-close" aria-label="Close menu">&times;</button>
+  </div>
+  <a href="index.html">Home</a>
+  <a href="shop.html">Shop</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="cart.html">Cart</a>
+</div>
+
+<section class="page-hero" style="padding-top:70px;padding-bottom:40px;">
+  <h1 id="page-h1">Your Cart</h1>
+  <div class="breadcrumb"><a href="index.html">Home</a> / Cart</div>
+</section>
+
+<section class="section" style="padding-top:50px;">
+  <div class="container">
+
+    <div class="checkout-steps" id="checkout-steps">
+      <div class="step active" data-step="cart"><div class="num">1</div><span>Cart</span></div>
+      <div class="step" data-step="details"><div class="num">2</div><span>Details</span></div>
+      <div class="step" data-step="payment"><div class="num">3</div><span>Payment</span></div>
+    </div>
+
+    <!-- STEP 1: CART -->
+    <div id="view-cart">
+      <div class="cart-layout">
+        <div>
+          <div class="cart-table-head">
+            <span>Product</span><span>Size / Colour</span><span>Quantity</span><span>Subtotal</span><span></span>
+          </div>
+          <div id="cart-rows"></div>
+        </div>
+        <div class="summary-card">
+          <h3>Order Summary</h3>
+          <div class="summary-line"><span>Subtotal</span><span id="sum-subtotal">R 0</span></div>
+          <div class="summary-line"><span>Shipping</span><span id="sum-shipping">R 0</span></div>
+          <div class="summary-line" id="promo-line" style="display:none;color:var(--forest);"><span>Promo (ACHUMA -15%)</span><span id="sum-promo">-R 0</span></div>
+          <div class="promo-row">
+            <input type="text" id="promo-input" placeholder="Promo code">
+            <button class="btn btn-outline btn-sm" id="promo-apply">Apply</button>
+          </div>
+          <div class="summary-line total"><span>Total</span><span id="sum-total">R 0</span></div>
+          <button class="btn btn-primary btn-block" id="to-details-btn" style="margin-top:14px;">Proceed to Checkout</button>
+          <div class="trust-badges">🔒 Secure checkout &nbsp;·&nbsp; Payments via YOCO</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: DETAILS -->
+    <div id="view-details" style="display:none;">
+      <div class="cart-layout">
+        <div>
+          <div class="section-head left">
+            <span class="eyebrow">Step 2 of 3</span>
+            <h2 style="font-size:1.5rem;">Delivery Details</h2>
+          </div>
+          <form id="details-form">
+            <div class="form-row">
+              <div class="field"><label>Full Name</label><input type="text" required></div>
+              <div class="field"><label>Phone Number</label><input type="tel" required placeholder="+27"></div>
+            </div>
+            <div class="field"><label>Email</label><input type="email" required></div>
+            <div class="field"><label>Delivery Address</label><input type="text" placeholder="Street address" required></div>
+            <div class="form-row">
+              <div class="field"><label>City</label><input type="text" required></div>
+              <div class="field"><label>Postal Code</label><input type="text" required></div>
+            </div>
+            <div class="field"><label>Order Notes (optional)</label><textarea placeholder="Custom measurements, ceremony date, special requests..."></textarea></div>
+          </form>
+          <button class="btn btn-outline" id="back-to-cart-btn">← Back to Cart</button>
+        </div>
+        <div class="summary-card">
+          <h3>Order Summary</h3>
+          <div id="details-summary-lines"></div>
+          <div class="summary-line total"><span>Total</span><span id="sum-total-2">R 0</span></div>
+          <button class="btn btn-primary btn-block" id="to-payment-btn" style="margin-top:14px;">Continue to Payment</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3: PAYMENT -->
+    <div id="view-payment" style="display:none;">
+      <div class="cart-layout">
+        <div>
+          <div class="section-head left">
+            <span class="eyebrow">Step 3 of 3</span>
+            <h2 style="font-size:1.5rem;">Payment</h2>
+          </div>
+          <p style="color:var(--text-soft);margin-bottom:24px;">Payments are processed securely by Yoco. Custom and made-to-order pieces require a 50% deposit today, with the balance due before collection or dispatch.</p>
+          <div class="field" style="max-width:320px;">
+            <label>Payment Option</label>
+            <select id="pay-option">
+              <option value="full">Pay in full</option>
+              <option value="deposit">Pay 50% deposit now</option>
+            </select>
+          </div>
+          <button class="btn btn-gold" id="pay-btn" style="margin-top:20px;">Pay Securely With Yoco</button>
+          <button class="btn btn-outline" id="back-to-details-btn" style="margin-top:20px;margin-left:10px;">← Back</button>
+          <p style="font-size:.74rem;color:var(--text-soft);margin-top:18px;">By completing this purchase you agree to our shipping and exchange policy. This is a demo storefront — no real payment will be taken.</p>
+        </div>
+        <div class="summary-card">
+          <h3>Amount Due</h3>
+          <div id="payment-summary-lines"></div>
+          <div class="summary-line total"><span id="due-label">Total Due</span><span id="sum-due">R 0</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4: CONFIRMATION -->
+    <div id="view-confirm" style="display:none;text-align:center;padding:60px 0;max-width:520px;margin:0 auto;">
+      <div style="width:72px;height:72px;border-radius:50%;background:var(--forest);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <h2>Thank You For Your Order</h2>
+      <p style="color:var(--text-soft);margin-top:12px;">Your order has been received. We'll send a confirmation to your email shortly, and reach out to arrange your fitting and next steps.</p>
+      <p style="margin-top:18px;font-family:var(--font-display);font-size:1.2rem;color:var(--accent);" id="confirm-order-id"></p>
+      <a href="index.html" class="btn btn-primary" style="margin-top:26px;">Continue Shopping</a>
+    </div>
+
+    <!-- EMPTY CART -->
+    <div class="cart-empty" id="view-empty" style="display:none;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M6 7h15l-1.5 9.5a2 2 0 0 1-2 1.7H8.7a2 2 0 0 1-2-1.7L5 4H2"/><circle cx="9.5" cy="21" r="1.4"/><circle cx="17.5" cy="21" r="1.4"/></svg>
+      <h3>Your cart is empty</h3>
+      <p>Looks like you haven't added anything yet — let's fix that.</p>
+      <a href="shop.html" class="btn btn-primary">Shop The Collection</a>
+    </div>
+
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="index.html" class="brand"><span class="brand-word">Saved Makoti<small>Clothing Line</small></span></a>
+      <p>Modernised traditional Makoti outfits for brides and formal occasions, handcrafted in Mthatha, South Africa. Where quality meets class.</p>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/savedmakoti_clothing_line/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="https://www.facebook.com/profile.php?id=61569599087035" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 8h2V4h-2a4 4 0 0 0-4 4v2H9v4h2v6h4v-6h2.5l.5-4H15V8a1 1 0 0 1 1-1z"/></svg></a>
+        <a href="https://www.tiktok.com/@saved_makoti" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 3a5 5 0 0 0 5 5v3a8 8 0 0 1-5-1.7V16a5.5 5.5 0 1 1-5.5-5.5c.3 0 .6 0 .9.1v3.1a2.4 2.4 0 1 0 1.6 2.3V3z"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="shop.html?collection=elegant-traditional">Elegant Traditional</a></li>
+        <li><a href="shop.html?collection=everyday-makoti">Everyday Makoti</a></li>
+        <li><a href="shop.html?collection=office-wear">Office Wear</a></li>
+        <li><a href="shop.html?collection=groom-couples">Groom &amp; Couples</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="contact.html#faq">Shipping &amp; Exchanges</a></li>
+        <li><a href="cart.html">Your Cart</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Visit The Studio</h4>
+      <address>
+        49 Leeds Rd, Norwood<br>
+        Mthatha, 5100, South Africa<br><br>
+        <a href="tel:+27731575007">+27 73 157 5007</a><br>
+        <a href="mailto:info@savedmakoti.co.za">info@savedmakoti.co.za</a>
+      </address>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Saved Makoti Clothing Line. All rights reserved.</span>
+    <span class="footer-payments">Secure payments via YOCO &nbsp;·&nbsp; Visa &nbsp;·&nbsp; Mastercard</span>
+  </div>
+</footer>
+
+<script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/main.js"></script>
+<script>
+  let promoApplied = false;
+  const PROMO_CODE = "ACHUMA";
+  const PROMO_RATE = 0.15;
+
+  function computeTotals(){
+    const subtotal = cartSubtotal();
+    const shipping = subtotal === 0 ? 0 : (subtotal >= FREE_SHIP_THRESHOLD ? 0 : SHIP_FLAT);
+    const promo = promoApplied ? Math.round(subtotal * PROMO_RATE) : 0;
+    const total = subtotal + shipping - promo;
+    return { subtotal, shipping, promo, total };
+  }
+
+  function renderCartRows(){
+    const cart = getCart();
+    const wrap = document.getElementById("cart-rows");
+    const emptyView = document.getElementById("view-empty");
+    const cartView = document.getElementById("view-cart");
+    const stepsEl = document.getElementById("checkout-steps");
+
+    if(cart.length === 0){
+      emptyView.style.display = "block";
+      cartView.style.display = "none";
+      stepsEl.style.display = "none";
+      document.getElementById("page-h1").textContent = "Your Cart";
+      return;
+    }
+    emptyView.style.display = "none";
+    document.getElementById("page-h1").textContent = `Your Cart (${cartCount()})`;
+
+    wrap.innerHTML = cart.map(line => {
+      const p = findProduct(line.id);
+      if(!p) return "";
+      const sub = p.price * line.qty;
+      return `
+        <div class="cart-row">
+          <div class="prod">
+            <img src="${p.images[0]}" alt="${p.name}">
+            <div>
+              <a href="product.html?id=${p.id}" class="prod-name">${p.name}</a>
+              <div class="prod-opts">${line.size ? "Size: "+line.size : ""} ${line.color ? "· Colour swatch" : ""}</div>
+            </div>
+          </div>
+          <div data-label="Size/Colour">${line.size || "—"}</div>
+          <div data-label="Quantity">
+            <div class="qty-stepper" style="height:38px;">
+              <button type="button" onclick="changeQty('${line.id}','${line.size||""}','${line.color||""}', ${line.qty-1})">−</button>
+              <input type="text" value="${line.qty}" readonly style="width:30px;">
+              <button type="button" onclick="changeQty('${line.id}','${line.size||""}','${line.color||""}', ${line.qty+1})">+</button>
+            </div>
+          </div>
+          <div data-label="Subtotal">${formatPrice(sub)}</div>
+          <div><button class="remove-link" onclick="changeQty('${line.id}','${line.size||""}','${line.color||""}', 0)">Remove</button></div>
+        </div>`;
+    }).join("");
+
+    renderSummary();
+  }
+
+  function changeQty(id, size, color, qty){
+    updateCartQty(id, size || null, color || null, qty);
+    renderCartRows();
+  }
+
+  function renderSummary(){
+    const { subtotal, shipping, promo, total } = computeTotals();
+    document.getElementById("sum-subtotal").textContent = formatPrice(subtotal);
+    document.getElementById("sum-shipping").textContent = shipping === 0 ? "Free" : formatPrice(shipping);
+    document.getElementById("sum-total").textContent = formatPrice(total);
+    document.getElementById("promo-line").style.display = promoApplied ? "flex" : "none";
+    document.getElementById("sum-promo").textContent = "-" + formatPrice(promo);
+  }
+
+  document.getElementById("promo-apply").addEventListener("click", ()=>{
+    const val = document.getElementById("promo-input").value.trim().toUpperCase();
+    if(val === PROMO_CODE){
+      promoApplied = true;
+      showToast("Promo code applied — 15% off!");
+    }else{
+      promoApplied = false;
+      showToast("That code isn't valid. Try ACHUMA.");
+    }
+    renderSummary();
+  });
+
+  /* ---- Step navigation ---- */
+  function goToStep(step){
+    ["cart","details","payment"].forEach(s=>{
+      document.getElementById("view-"+s).style.display = (s===step) ? "block" : "none";
+    });
+    document.getElementById("view-confirm").style.display = "none";
+    document.querySelectorAll("#checkout-steps .step").forEach(el=>{
+      el.classList.toggle("active", el.dataset.step === step);
+    });
+    window.scrollTo({top:300, behavior:"smooth"});
+  }
+
+  document.getElementById("to-details-btn").addEventListener("click", ()=>{
+    if(cartCount() === 0){ showToast("Your cart is empty."); return; }
+    goToStep("details");
+    renderDetailsSummary();
+  });
+  document.getElementById("back-to-cart-btn").addEventListener("click", ()=>goToStep("cart"));
+  document.getElementById("back-to-details-btn").addEventListener("click", ()=>goToStep("details"));
+
+  function renderDetailsSummary(){
+    const { subtotal, shipping, promo, total } = computeTotals();
+    document.getElementById("details-summary-lines").innerHTML = `
+      <div class="summary-line"><span>Subtotal</span><span>${formatPrice(subtotal)}</span></div>
+      <div class="summary-line"><span>Shipping</span><span>${shipping===0?"Free":formatPrice(shipping)}</span></div>
+      ${promoApplied ? `<div class="summary-line" style="color:var(--forest);"><span>Promo (ACHUMA)</span><span>-${formatPrice(promo)}</span></div>` : ""}
+    `;
+    document.getElementById("sum-total-2").textContent = formatPrice(total);
+  }
+
+  document.getElementById("to-payment-btn").addEventListener("click", ()=>{
+    const form = document.getElementById("details-form");
+    if(!form.checkValidity()){ form.reportValidity(); return; }
+    goToStep("payment");
+    renderPaymentSummary();
+  });
+
+  function renderPaymentSummary(){
+    const { subtotal, shipping, promo, total } = computeTotals();
+    const payOption = document.getElementById("pay-option").value;
+    const due = payOption === "deposit" ? Math.round(total * 0.5) : total;
+    document.getElementById("payment-summary-lines").innerHTML = `
+      <div class="summary-line"><span>Subtotal</span><span>${formatPrice(subtotal)}</span></div>
+      <div class="summary-line"><span>Shipping</span><span>${shipping===0?"Free":formatPrice(shipping)}</span></div>
+      ${promoApplied ? `<div class="summary-line" style="color:var(--forest);"><span>Promo (ACHUMA)</span><span>-${formatPrice(promo)}</span></div>` : ""}
+      <div class="summary-line"><span>Order Total</span><span>${formatPrice(total)}</span></div>
+    `;
+    document.getElementById("due-label").textContent = payOption === "deposit" ? "Deposit Due Now" : "Total Due";
+    document.getElementById("sum-due").textContent = formatPrice(due);
+  }
+  document.getElementById("pay-option").addEventListener("change", renderPaymentSummary);
+
+  /* ---- Yoco payment (placeholder — insert live public key to go live) ---- */
+  document.getElementById("pay-btn").addEventListener("click", ()=>{
+    const { total, subtotal } = computeTotals();
+    const payOption = document.getElementById("pay-option").value;
+    const dueAmount = payOption === "deposit" ? Math.round(total*0.5) : total;
+
+    if(typeof YocoSDK !== "undefined"){
+      // Production path: replace 'pk_test_xxxxxxxxxxxx' with your Yoco public key.
+      try{
+        const yoco = new YocoSDK({ publicKey: 'pk_test_xxxxxxxxxxxx' });
+        yoco.showPopup({
+          amountInCents: dueAmount * 100,
+          currency: 'ZAR',
+          name: 'Saved Makoti Clothing Line',
+          description: 'Order payment',
+          callback: function(result){
+            if(result.error){
+              showToast("Payment error: " + result.error.message);
+            }else{
+              completeOrder();
+            }
+          }
+        });
+        return;
+      }catch(e){ /* fall through to demo flow below */ }
+    }
+    // Demo flow (no live Yoco key configured / SDK unavailable offline)
+    showToast("Demo mode: simulating secure Yoco payment…");
+    setTimeout(completeOrder, 900);
+  });
+
+  function completeOrder(){
+    const orderId = "SM-" + Math.floor(100000 + Math.random()*900000);
+    document.getElementById("confirm-order-id").textContent = "Order #" + orderId;
+    saveCart([]);
+    ["cart","details","payment"].forEach(s=> document.getElementById("view-"+s).style.display = "none");
+    document.getElementById("view-empty").style.display = "none";
+    document.getElementById("checkout-steps").style.display = "none";
+    document.getElementById("page-h1").textContent = "Order Confirmed";
+    document.getElementById("view-confirm").style.display = "block";
+    window.scrollTo({top:200, behavior:"smooth"});
+  }
+
+  renderCartRows();
+</script>
+</body>
+</html>
